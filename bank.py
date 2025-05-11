@@ -268,38 +268,55 @@ def update_customer():
 
 #=============================================================***TRANSFER MONEY***=================================================================================================#
 def transfer_money():
-    print("\n*************TRANSFER_MONEY*******************")
+    print("\n************* TRANSFER MONEY *************")
     
-    from_account_number = input("Enter Your Account Number: ").strip()
-    to_account_number = input("Enter transfer Account Number").strip()
+    from_acc = input("Enter Your Account Number: ").strip()
+    to_acc = input("Enter Recipient's Account Number: ").strip()
+    amount = amount_input()
+    
+    accounts = {}
     updated = False
+
     try:
+        # Load existing accounts
         with open("accounts.txt", "r") as file:
-            lines = file.readlines()
-
-        with open("accounts.txt", "w") as file:
-            for line in lines:
+            for line in file:
                 parts = line.strip().split(",")
-                if parts[1] == from_account_number:
-                    balance = float(parts[2])
-                    transfer_amount = amount_input()
-                    new_balance = balance - transfer_amount
-                if parts[1] == to_account_number:   
-                    balance = float(parts[2])
-                    file.write(f"{parts[0]},{from_account_number},{new_balance}\n")
-                    updated = True
-                    time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
-                    
-                    with open("transaction.txt", "a") as trans_file:
-                        trans_file.write(f"from_acc: {from_account_number}, to_acc: {to_account_number}, transfer: {transfer_amount},balance: {new_balance} time: {time_menu}\n")
-                    print(f"Transfer Money successful! New balance: {new_balance}")
-                else:
-                    file.write(line)
+                if len(parts) == 3:
+                    accounts[parts[1]] = [parts[0], float(parts[2])]  # {acc_no: [cust_id, balance]}
 
-        if not updated:
-            print("Account not found.")
+        # Check both accounts exist
+        if from_acc not in accounts:
+            print("Sender account not found.")
+            return
+        if to_acc not in accounts:
+            print("Recipient account not found.")
+            return
+
+        # Check for sufficient funds
+        if accounts[from_acc][1] < amount:
+            print("Insufficient balance.")
+            return
+
+        # Perform transfer
+        accounts[from_acc][1] -= amount
+        accounts[to_acc][1] += amount
+        updated = True
+
+        # Save all account data back to file
+        with open("accounts.txt", "w") as file:
+            for acc_num, data in accounts.items():
+                file.write(f"{data[0]},{acc_num},{data[1]:.2f}\n")
+
+        # Log the transaction
+        timestamp = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
+        with open("transaction.txt", "a") as trans_file:
+            trans_file.write(f"from: {from_acc}, to: {to_acc}, transfer: {amount:.2f}, sender_balance: {accounts[from_acc][1]:.2f}, time: {timestamp}\n")
+
+        print(f"Transfer successful! New balance of sender ({from_acc}): {accounts[from_acc][1]:.2f}")
+
     except FileNotFoundError:
-        print("account_no.txt not found.")
+        print("accounts.txt not found.")
 
 #================================================================***TRANSACTION HISTORY***=========================================================================================#
 
