@@ -304,21 +304,38 @@ def transfer_money():
 #================================================================***TRANSACTION HISTORY***=========================================================================================#
 
 def transaction_history():
-    account_no = input("Enter Your Account Number: ")
+    account_no = input("Enter Your Account Number: ").strip()
     try:
         with open("transaction.txt", "r") as transaction_file:
-            print(f"{'account_no':<10}{'current balance':<15}{'Action':<10}{'amount':<15}{'time':}\n")
-            for trans_datas_line in transaction_file:
-                transaction_data = trans_datas_line.strip().split(',')
-                if account_no == transaction_data[0]:
-                    print(f"{transaction_data[0]:<10}{transaction_data[1]:<15}{transaction_data[2]:<10}{transaction_data[3]:<15}{transaction_data[4]}\n")
-                else:
-                    continue
-
+            print(f"\n{'Date/Time':<24}  {'Action':<12}  {'Amount':<12}  {'Balance':<12}")
+            for line in transaction_file:
+                # Extract account number from transaction line
+                if line.startswith(f"account: {account_no},") or f"from: {account_no}," in line or f"to: {account_no}," in line:
+                    parts = [p.strip() for p in line.split(',')]
+                    timestamp = parts[-1].split('time: ')[1]
+                    
+                    if 'deposit' in line:
+                        action = "Deposit"
+                        amount = parts[1].split(': ')[1]
+                        balance = parts[2].split(': ')[1]
+                    elif 'withdraw' in line:
+                        action = "Withdraw"
+                        amount = parts[1].split(': ')[1]
+                        balance = parts[2].split(': ')[1].split(' ')[0]  # Fix missing comma issue
+                    elif 'transfer' in line:
+                        if f"from: {account_no}" in line:
+                            action = "Sent"
+                            amount = parts[2].split(': ')[1]
+                            balance = parts[3].split(': ')[1]
+                        else:
+                            action = "Received"
+                            amount = parts[2].split(': ')[1]
+                            balance = parts[4].split(': ')[1]
+                    
+                    print(f"{timestamp:<22}{action:<12}{f'${float(amount):,.2f}':>12}{f'${float(balance):,.2f}':>12}")
+                    
     except FileNotFoundError:
-        print("Transaction file not found!!!")    
-
-    
+        print("No transaction history available.")   
 
 
 #=====================================================================***ADMIN & CUSTOMER MENU***=================================================================================# 
