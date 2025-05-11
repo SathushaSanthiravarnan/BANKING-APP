@@ -1,3 +1,3 @@
-account: 1000000, deposit: 250.0, balance: 5250.0, time: 11-05-2025 Sunday 11:29 AM
-account: 1000000, withdraw: 400.0, balance: 4850.0 time: 11-05-2025 Sunday 11:29 AM
-from_acc: 1000000, to_acc: 1000001, transfer: 2500.0,balance: 2350.0 time: 11-05-2025 Sunday 11:32 AM
+from: 1000001, to: 1000000, transfer: 2500.00, sender_balance: 67500.00, time: 11-05-2025 Sunday 01:15 PM
+account: 1000001, withdraw: 1500.0, balance: 66000.0 time: 11-05-2025 Sunday 01:16 PM
+from: 1000001, to: 1000000, transfer: 4000.00, sender_balance: 62000.00, time: 11-05-2025 Sunday 01:16 PM
