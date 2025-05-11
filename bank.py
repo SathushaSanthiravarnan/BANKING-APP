@@ -5,15 +5,15 @@ from datetime import datetime
 
 def create_customer_next_id():
     if not os.path.exists("customer.txt") or os.path.getsize("customer.txt") == 0:
-        return "C001"
+        return "C0001"
     with open("customer.txt", "r") as customer_file:
-        return f"C{int(customer_file.readlines()[-1].split(",")[0][1:]) + 1:04}"
+        return f"C{int(customer_file.readlines()[-1].split(',')[0][1:]) + 1:04}"
 
 def create_user_next_id():
     if not os.path.exists("user.txt") or os.path.getsize("user.txt") == 0:
-        return "U001"
+        return "U0010"
     with open("user.txt", "r") as user_file:
-        return f"U{int(user_file.readlines()[-1].split(",")[0][1:]) + 1:04}"
+        return f"U{int(user_file.readlines()[-1].split(',')[0][1:]) + 1:04}"
 
 #====================================================================***ADMIN***==================================================================================================# 
 
