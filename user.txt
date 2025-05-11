@@ -1,3 +1,3 @@
-U001,ADMIN,Sathu15,Admin
-U0002,thadsha,thadsha26,Customer
-U0003,hai,hai,Customer
+U0001,ADMIN,Sathu15,Admin
+U0002,sathu,sathu6,Customer
+U0003,thadsha,thadsha8,Customer
