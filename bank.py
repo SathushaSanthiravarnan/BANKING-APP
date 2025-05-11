@@ -11,7 +11,7 @@ def create_customer_next_id():
 
 def create_user_next_id():
     if not os.path.exists("user.txt") or os.path.getsize("user.txt") == 0:
-        return "U0010"
+        return "U0001"
     with open("user.txt", "r") as user_file:
         return f"U{int(user_file.readlines()[-1].split(',')[0][1:]) + 1:04}"
 
