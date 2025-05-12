@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-#==============================================================***ID GENERATOR***===================================================================================================#
+#===============================================================***ID GENERATOR***===================================================================================================#
 
 def create_customer_next_id():
     if not os.path.exists("customer.txt") or os.path.getsize("customer.txt") == 0:
@@ -15,7 +15,7 @@ def create_user_next_id():
     with open("user.txt", "r") as user_file:
         return f"U{int(user_file.readlines()[-1].split(",")[0][1:]) + 1:04}"
 
-#====================================================================***ADMIN***==================================================================================================# 
+#====================================================================***ADMIN***=====================================================================================================# 
 
 def create_first_admin():
     if not os.path.exists("user.txt") or os.path.getsize("user.txt") == 0:
@@ -30,7 +30,7 @@ def create_first_admin():
 def get_valid_input(prompt):
         while True:
             value = input(prompt).strip()
-            if value:  # Check if input is not empty
+            if value:  
                 return value
             else:
                 print("Input cannot be empty. Please enter a valid value.")
@@ -59,7 +59,7 @@ def get_customer_info():
         "Phone_No": phone
     }
 
-#================================================================***LOGIN SYSTEM***===============================================================================================#
+#==================================================================***LOGIN SYSTEM***===============================================================================================#
 
 def login_system():
     username = input("Enter your username: ")
@@ -78,7 +78,7 @@ def login_system():
         print("User file not found.")
         return None
 
-#=================================================================***CREATE CUSTOMER AND USER***===================================================================================# 
+#==================================================================***CREATE CUSTOMER AND USER***===================================================================================# 
 
 def create_customer_and_user():
     customer = get_customer_info()
@@ -116,7 +116,7 @@ def create_new_account():
         count = len(lines)
     except FileNotFoundError:
         count = 0
-
+ 
     new_account_no = account_num + count
     try:
         ac_balance = float(input("Enter your deposit money: "))
@@ -190,6 +190,7 @@ def deposit():
         print("accounts.txt not found.")
 
 #========================================================================***WITHDRAW***==============================================================================================#
+
 def withdraw():
     acc_no = input("Enter account number: ").strip()
     updated = False
@@ -267,6 +268,7 @@ def update_customer():
         print("customer.txt not found.")
 
 #=============================================================***TRANSFER MONEY***=================================================================================================#
+
 def transfer_money():
     print("\n*************TRANSFER_MONEY*******************")
     
@@ -280,15 +282,16 @@ def transfer_money():
         with open("accounts.txt", "w") as file:
             for line in lines:
                 parts = line.strip().split(",")
-                if parts[1] == from_account_number:
-                    balance = float(parts[2])
-                    transfer_amount = amount_input()
-                    new_balance = balance - transfer_amount
-                if parts[1] == to_account_number:   
-                    balance = float(parts[2])
-                    file.write(f"{parts[0]},{from_account_number},{new_balance}\n")
-                    updated = True
-                    time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
+                if from_account_number != to_account_number    
+                    if parts[1] == from_account_number:                   
+                        balance = float(parts[2])
+                        transfer_amount = amount_input()
+                        new_balance = balance - transfer_amount
+                    if parts[1] == to_account_number:   
+                        balance = float(parts[2])
+                        file.write(f"{parts[0]},{from_account_number},{new_balance}\n")
+                        updated = True
+                        time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
                     
                     with open("transaction.txt", "a") as trans_file:
                         trans_file.write(f"from_acc: {from_account_number}, to_acc: {to_account_number}, transfer: {transfer_amount},balance: {new_balance} time: {time_menu}\n")
@@ -318,14 +321,11 @@ def transaction_history():
     except FileNotFoundError:
         print("Transaction file not found!!!")    
 
-    
+#=====================================================================***ADMIN & CUSTOMER MENU***===================================================================================# 
 
-
-#=====================================================================***ADMIN & CUSTOMER MENU***=================================================================================# 
-
-def admin_menu():
+def admin_menu()
     while True:
-        print("\nAdmin Menu")
+        print("\n********************Admin Menu******************")
         print("1. Create User")
         print("2. Create Account")
         print("3. Deposit")
@@ -359,9 +359,11 @@ def admin_menu():
         else:
             print("Invalid input.")
 
+#==========================================================================***CUSTOMER MENU***===================================================================================
+
 def customer_menu():
     while True:
-        print("\nCustomer Menu")
+        print("\n**************Customer Menu*****************")
         print("1. Deposit")
         print("2. Withdraw")
         print("3. Transfer Money")
@@ -422,6 +424,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-#************=================================================************************************=====================================================================************#
+#************===================================================************************************=====================================================================************#
     
 
