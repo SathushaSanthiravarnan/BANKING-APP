@@ -1,0 +1,2 @@
+C0001,Sathu,123456789,26,female,vavuniya,123456789
+C0002,Dayana,12345678,22,female,vavuniya,12345678

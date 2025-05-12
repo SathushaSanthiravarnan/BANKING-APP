@@ -1,0 +1,3 @@
+U0001,ADMIN,Sathu15,Admin
+U0002,Sathusha,1234,Customer
+U0003,Dayana,1234,Customer
