@@ -2,11 +2,7 @@ import os
 from datetime import datetime
 
 #===============================================================***ID GENERATOR***===================================================================================================#
-<<<<<<< HEAD
-#-----
-=======
 
->>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 def create_customer_next_id():
     if not os.path.exists("customer.txt") or os.path.getsize("customer.txt") == 0:
         return "C0001"
@@ -272,19 +268,6 @@ def update_customer():
         print("customer.txt not found.")
 
 #=============================================================***TRANSFER MONEY***=================================================================================================#
-<<<<<<< HEAD
-=======
-
-def transfer_money():
-    print("\n*************TRANSFER_MONEY*******************")
-    
-    from_account_number = input("Enter Your Account Number: ").strip()
-    to_account_number = input("Enter transfer Account Number").strip()
-    updated = False
-    try:
-        with open("accounts.txt", "r") as file:
-            lines = file.readlines()
->>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 
 def transfer_money():
     print("\n************* TRANSFER MONEY *************")
@@ -301,8 +284,6 @@ def transfer_money():
         with open("accounts.txt", "r") as file:
             for line in file:
                 parts = line.strip().split(",")
-<<<<<<< HEAD
-<<<<<<< HEAD
                 if len(parts) == 3:
                     accounts[parts[1]] = [parts[0], float(parts[2])]  # {acc_no: [cust_id, balance]}
 
@@ -335,26 +316,6 @@ def transfer_money():
             trans_file.write(f"from: {from_acc}, to: {to_acc}, transfer: {amount:.2f}, sender_balance: {accounts[from_acc][1]:.2f}, time: {timestamp}\n")
 
         print(f"Transfer successful! New balance of sender ({from_acc}): {accounts[from_acc][1]:.2f}")
-=======
-=======
->>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
-                if from_account_number != to_account_number    
-                    if parts[1] == from_account_number:                   
-                        balance = float(parts[2])
-                        transfer_amount = amount_input()
-                        new_balance = balance - transfer_amount
-                    if parts[1] == to_account_number:   
-                        balance = float(parts[2])
-                        file.write(f"{parts[0]},{from_account_number},{new_balance}\n")
-                        updated = True
-                        time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
-                    
-                    with open("transaction.txt", "a") as trans_file:
-                        trans_file.write(f"from_acc: {from_account_number}, to_acc: {to_account_number}, transfer: {transfer_amount},balance: {new_balance} time: {time_menu}\n")
-                    print(f"Transfer Money successful! New balance: {new_balance}")
-                else:
-                    file.write(line)
->>>>>>> 59c707d (enhanced)
 
     except FileNotFoundError:
         print("accounts.txt not found.")
@@ -393,18 +354,11 @@ def transaction_history():
                     print(f"{timestamp:<22}{action:<12}{f'${float(amount):,.2f}':>12}{f'${float(balance):,.2f}':>12}")
                     
     except FileNotFoundError:
-<<<<<<< HEAD
-        print("No transaction history available.")   
-=======
         print("Transaction file not found!!!")    
 
 #=====================================================================***ADMIN & CUSTOMER MENU***===================================================================================# 
-<<<<<<< HEAD
->>>>>>> 59c707d (enhanced)
-=======
->>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 
-def admin_menu()
+def admin_menu():
     while True:
         print("\n********************Admin Menu******************")
         print("1. Create User")
