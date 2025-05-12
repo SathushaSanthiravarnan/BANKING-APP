@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 U0001,ADMIN,Sathu15,Admin
 U0002,sathu,sathu6,Customer
 U0003,thadsha,thadsha8,Customer
+=======
+U0001,ADMIN,Sathu15,Admin
+U0002,Sathusha,1234,Customer
+U0003,Dayana,1234,Customer
+>>>>>>> 30eb5b2 (Added untracked files)

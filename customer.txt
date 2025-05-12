@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 C0001,sathusha,9968541257v,26,female,vavuniya,07541286321
 C0002,thadshajiny,996784852v,26,female,vavuniya,0759941605
+=======
+C0001,Sathu,123456789,26,female,vavuniya,123456789
+C0002,Dayana,12345678,22,female,vavuniya,12345678
+>>>>>>> 30eb5b2 (Added untracked files)
