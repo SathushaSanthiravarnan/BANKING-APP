@@ -2,7 +2,11 @@ import os
 from datetime import datetime
 
 #===============================================================***ID GENERATOR***===================================================================================================#
+<<<<<<< HEAD
 #-----
+=======
+
+>>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 def create_customer_next_id():
     if not os.path.exists("customer.txt") or os.path.getsize("customer.txt") == 0:
         return "C0001"
@@ -268,6 +272,19 @@ def update_customer():
         print("customer.txt not found.")
 
 #=============================================================***TRANSFER MONEY***=================================================================================================#
+<<<<<<< HEAD
+=======
+
+def transfer_money():
+    print("\n*************TRANSFER_MONEY*******************")
+    
+    from_account_number = input("Enter Your Account Number: ").strip()
+    to_account_number = input("Enter transfer Account Number").strip()
+    updated = False
+    try:
+        with open("accounts.txt", "r") as file:
+            lines = file.readlines()
+>>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 
 def transfer_money():
     print("\n************* TRANSFER MONEY *************")
@@ -284,6 +301,7 @@ def transfer_money():
         with open("accounts.txt", "r") as file:
             for line in file:
                 parts = line.strip().split(",")
+<<<<<<< HEAD
 <<<<<<< HEAD
                 if len(parts) == 3:
                     accounts[parts[1]] = [parts[0], float(parts[2])]  # {acc_no: [cust_id, balance]}
@@ -318,6 +336,8 @@ def transfer_money():
 
         print(f"Transfer successful! New balance of sender ({from_acc}): {accounts[from_acc][1]:.2f}")
 =======
+=======
+>>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
                 if from_account_number != to_account_number    
                     if parts[1] == from_account_number:                   
                         balance = float(parts[2])
@@ -379,7 +399,10 @@ def transaction_history():
         print("Transaction file not found!!!")    
 
 #=====================================================================***ADMIN & CUSTOMER MENU***===================================================================================# 
+<<<<<<< HEAD
 >>>>>>> 59c707d (enhanced)
+=======
+>>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 
 def admin_menu()
     while True:

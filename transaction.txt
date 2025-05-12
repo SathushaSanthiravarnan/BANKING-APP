@@ -1,12 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 from: 1000001, to: 1000000, transfer: 2500.00, sender_balance: 67500.00, time: 11-05-2025 Sunday 01:15 PM
 account: 1000001, withdraw: 1500.0, balance: 66000.0 time: 11-05-2025 Sunday 01:16 PM
 from: 1000001, to: 1000000, transfer: 4000.00, sender_balance: 62000.00, time: 11-05-2025 Sunday 01:16 PM
 =======
+=======
+>>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
 account: 1000000, deposit: 1000.0, balance: 11000.0, time: 12-05-2025 Monday 09:41 AM
 account: 1000000, withdraw: 100.0, balance: 10900.0 time: 12-05-2025 Monday 09:43 AM
 account: 1000000, deposit: 1000.0, balance: 11900.0, time: 12-05-2025 Monday 10:24 AM
 from: 1000000, to: 1000000, transfer: 1000.00, sender_balance: 11900.00, time: 12-05-2025 Monday 10:25 AM
 account: 1000001, withdraw: 300.0, balance: 8700.0 time: 12-05-2025 Monday 12:47 PM
 from: 1000001, to: 1000000, transfer: 300.00, sender_balance: 8400.00, time: 12-05-2025 Monday 12:47 PM
+<<<<<<< HEAD
 >>>>>>> 30eb5b2 (Added untracked files)
+=======
+>>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
