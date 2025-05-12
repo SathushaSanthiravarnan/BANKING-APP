@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 U0001,ADMIN,Sathu15,Admin
-U0002,sathu,sathu6,Customer
-U0003,thadsha,thadsha8,Customer
-=======
-U0001,ADMIN,Sathu15,Admin
-U0002,Sathusha,1234,Customer
-U0003,Dayana,1234,Customer
->>>>>>> 30eb5b2 (Added untracked files)
-=======
-U0001,ADMIN,Sathu15,Admin
-U0002,Sathusha,1234,Customer
-U0003,Dayana,1234,Customer
->>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
+U0002,baa,1234,Customer
+U003,baas,1234,Customer
+U0004,Sathusha,1234,Customer
+U0005,Sathu,1234,Customer

@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 C0001,sathusha,9968541257v,26,female,vavuniya,07541286321
-C0002,thadshajiny,996784852v,26,female,vavuniya,0759941605
-=======
-C0001,Sathu,123456789,26,female,vavuniya,123456789
-C0002,Dayana,12345678,22,female,vavuniya,12345678
->>>>>>> 30eb5b2 (Added untracked files)
-=======
-C0001,Sathu,123456789,26,female,vavuniya,123456789
-C0002,Dayana,12345678,22,female,vavuniya,12345678
->>>>>>> 30eb5b2c0b718596ea737b670367c32ecbdb9780
+C0002,daya,996784852v,26,female,vavuniya,0759941605
+C0003,baasith,20334554,23,male,KKY,24657
+C004,baasith,200332912129,23,malle,KKY,2345524
+C0005,Sathu,1234,26,female,vavuniya,2125464
+C0006,Sathu,1234,26,female,vavuniya,12357
