@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 #===============================================================***ID GENERATOR***===================================================================================================#
-
+#-----
 def create_customer_next_id():
     if not os.path.exists("customer.txt") or os.path.getsize("customer.txt") == 0:
         return "C0001"
