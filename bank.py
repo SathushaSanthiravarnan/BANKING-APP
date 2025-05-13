@@ -62,25 +62,6 @@ def get_customer_info():
         "Phone_No": phone
     }
 
-#================================================================***LOGIN SYSTEM***===============================================================================================#
-
-def login_system():
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
-
-    try:
-        with open("user.txt", "r") as user_file:
-            for line in user_file:
-                parts = line.strip().split(",")
-                if len(parts) >= 4 and parts[1] == username and parts[2] == password:
-                    print("Login successful!")
-                    return parts[3] 
-        print("Login failed. Try again.")
-        return None
-    except FileNotFoundError:
-        print("User file not found.")
-        return None
-
 #=================================================================***CREATE CUSTOMER AND USER***===================================================================================#
 
 def create_customer_and_user():
@@ -472,12 +453,7 @@ def select_option_ad_or_cus():
 def main():
     create_first_admin()
     select_option_ad_or_cus()
-    # role = login_system()
-    # if role == "Admin":
-    #     admin_menu()
-    # elif role == "Customer":
-    #     customer_menu()
-
+    
 if __name__ == "__main__":
     main()
 
