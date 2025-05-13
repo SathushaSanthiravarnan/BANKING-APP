@@ -1,5 +1,3 @@
 U0001,ADMIN,Sathu15,Admin
-U0002,baa,1234,Customer
-U003,baas,1234,Customer
-U0004,Sathusha,1234,Customer
-U0005,Sathu,1234,Customer
+U0002,Sathu,1234,Customer
+U0003,Dayana,1234,Customer

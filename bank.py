@@ -1,5 +1,8 @@
 import os
 from datetime import datetime
+from colorama import Fore,Back,Style,init
+init(autoreset=True)
+#"pip install colorama" run in command prompt
 
 #==============================================================***ID GENERATOR***===================================================================================================#
 
@@ -30,7 +33,7 @@ def create_first_admin():
 def get_valid_input(prompt):
         while True:
             value = input(prompt).strip()
-            if value:  # Check if input is not empty
+            if value:  
                 return value
             else:
                 print("Input cannot be empty. Please enter a valid value.")
@@ -40,7 +43,7 @@ def get_valid_input(prompt):
 
 def get_customer_info():
     username = get_valid_input("Enter customer's username: ")
-    password = input("Enter customer's password: ")
+    password = get_valid_input("Enter customer's password: ")
     name = get_valid_input("Enter customer's name: ")
     NIC = get_valid_input("Enter customer's NIC NO: ")
     age = get_valid_input("Enter customer's age: ")
@@ -68,10 +71,10 @@ def login_system():
     try:
         with open("user.txt", "r") as user_file:
             for line in user_file:
-                fields = line.strip().split(",")
-                if len(fields) >= 4 and fields[1] == username and fields[2] == password:
+                parts = line.strip().split(",")
+                if len(parts) >= 4 and parts[1] == username and parts[2] == password:
                     print("Login successful!")
-                    return fields[3]  # Return role (Admin/Customer)
+                    return parts[3] 
         print("Login failed. Try again.")
         return None
     except FileNotFoundError:
@@ -128,6 +131,10 @@ def create_new_account():
             account_file.write(f"{id_number},{new_account_no},{ac_balance}\n")
 
         print(f"New account created successfully! Account Number: {new_account_no}, Balance: {ac_balance}")
+
+        time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
+        with open("transaction.txt", "a") as file:
+            file.write(f"{account_num},initial_amount,{ac_balance},{ac_balance},{time_menu}\n")
     except ValueError:
         print("Invalid input for balance.")
 
@@ -177,9 +184,9 @@ def deposit():
                     file.write(f"{parts[0]},{account_number},{new_balance}\n")
                     updated = True
 
-                    timestamp = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
+                    time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
                     with open("transaction.txt", "a") as trans_file:
-                        trans_file.write(f"account: {account_number}, deposit: {deposit_amount}, balance: {new_balance}, time: {timestamp}\n")
+                        trans_file.write(f"{account_number},deposit,{deposit_amount},{new_balance},{time_menu}\n")
                     print(f"Deposit successful! New balance: {new_balance}")
                 else:
                     file.write(line)
@@ -210,7 +217,7 @@ def withdraw():
 
                         timestamp = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
                         with open("transaction.txt", "a") as trans_file:
-                            trans_file.write(f"account: {acc_no}, withdraw: {withdraw_amt}, balance: {new_balance} time: {timestamp}\n")
+                            trans_file.write(f"{acc_no},Withdraw,{withdraw_amt},{new_balance},{timestamp}\n")
                         print(f"Withdraw successful! New balance: {new_balance}")
                     else:
                         print("Insufficient balance.")
@@ -309,123 +316,140 @@ def transfer_money():
                 file.write(f"{data[0]},{acc_num},{data[1]:.2f}\n")
 
 
-        timestamp = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
+        time_menu = datetime.now().strftime("%d-%m-%Y %A %I:%M %p")
         with open("transaction.txt", "a") as trans_file:
-            trans_file.write(f"from: {from_acc}, to: {to_acc}, transfer: {amount:.2f}, sender_balance: {accounts[from_acc][1]:.2f}, time: {timestamp}\n")
-
+            trans_file.write(f"{from_acc},transfer,{amount},{accounts[from_acc][1]},{time_menu}\n")
+            trans_file.write(f"{to_acc},received,{amount},{accounts[to_acc][1]},{time_menu}\n")
         print(f"Transfer successful! New balance of sender ({from_acc}): {accounts[from_acc][1]:.2f}")
 
     except FileNotFoundError:
-        print("accounts.txt not found.")
+        print("accounts.txt not found.")
 
 #================================================================***TRANSACTION HISTORY***=========================================================================================#
 
 def transaction_history():
     account_no = input("Enter Your Account Number: ").strip()
+    found = False
     try:
         with open("transaction.txt", "r") as transaction_file:
-            print(f"\n{'Date/Time':<24}  {'Action':<12}  {'Amount':<12}  {'Balance':<12}")
+            print(f"{'account_number' :<35}{'current_balance':<20}{'deposit/withdrawal' :<25}{'amount' :<15}{'time'}\n")
             for line in transaction_file:
-
-                if line.startswith(f"account: {account_no},") or f"from: {account_no}," in line or f"to: {account_no}," in line:
-                    parts = [p.strip() for p in line.split(',')]
-                    timestamp = parts[-1].split('time: ')[1]
-
-                    if 'deposit' in line:
-                        action = "Deposit"
-                        amount = parts[1].split(': ')[1]
-                        balance = parts[2].split(': ')[1]
-                    elif 'withdraw' in line:
-                        action = "Withdraw"
-                        amount = parts[1].split(': ')[1]
-                        balance = parts[2].split(': ')[1].split(' ')[0]
-                    elif 'transfer' in line:
-                        if f"from: {account_no}" in line:
-                            action = "Sent"
-                            amount = parts[2].split(': ')[1]
-                            balance = parts[3].split(': ')[1]
-                        else:
-                            action = "Received"
-                            amount = parts[2].split(': ')[1]
-                            balance = parts[4].split(': ')[1]
-
-                    print(f"{timestamp:<22}{action:<12}{amount:>12}{balance:>12}")
-
+                transaction_data = line.strip().split(',')
+                if account_no == transaction_data[0]:
+                    print(f"{transaction_data[0]:<35}{transaction_data[1]:<20}{transaction_data[2]:<25}{transaction_data[3]:<15}{transaction_data[4]}\n")
+                    found = True
+            if not found:
+                print("No transaction history found!!!")
     except FileNotFoundError:
-        print("No transaction history available.")
-
-
-#=====================================================================***ADMIN & CUSTOMER MENU***=================================================================================#
+        print("Transaction file not found!!!")
+#=====================================================================***ADMIN & CUSTOMER MENU***==================================================================================#
 
 def admin_menu():
-    while True:
-        print("\nAdmin Menu")
-        print("1. Create User")
-        print("2. Create Account")
-        print("3. Deposit")
-        print("4. Withdraw")
-        print("5. Transfer Money")
-        print("6. View Transaction history")
-        print("7. Check Balance")
-        print("8. Update Customer")
-        print("9. Exit")
+    username = input("Enter your username: ")
+    password = input("Enter your password: ")
+    found = False
+    try:
+        with open("user.txt", "r") as user_file:
+            for line in user_file:
+                parts = line.strip().split(",")
+                if len(parts) >= 4 and parts[1] == username and parts[2] == password:
+                    print("Login successful!")
+                
+       
+                    while True:
+                        print("\nAdmin Menu")
+                        print("1. Create User")
+                        print("2. Create Account")
+                        print("3. Deposit")
+                        print("4. Withdraw")
+                        print("5. Transfer Money")
+                        print("6. View Transaction history")
+                        print("7. Check Balance")
+                        print("8. Update Customer")
+                        print("9. Exit")
 
-        choice = input("Enter choice: ")
+                        choice = input("Enter choice: ")
 
-        if choice == "1":
-            create_customer_and_user()
-        elif choice == "2":
-            create_new_account()
-        elif choice == "3":
-            deposit()
-        elif choice == "4":
-            withdraw()
-        elif choice == "5":
-            transfer_money()
-        elif choice == "6":
-            transaction_history()
-        elif choice == "7":
-            check_balance()
-        elif choice == "8":
-            update_customer()
-        elif choice == "9":
-            break
-        else:
-            print("Invalid input.")
+                        if choice == "1":
+                            create_customer_and_user()
+                        elif choice == "2":
+                            create_new_account()
+                        elif choice == "3":
+                            deposit()
+                        elif choice == "4":
+                            withdraw()
+                        elif choice == "5":
+                            transfer_money()
+                        elif choice == "6":
+                            transaction_history()
+                        elif choice == "7":
+                            check_balance()
+                        elif choice == "8":
+                            update_customer()
+                        elif choice == "9":
+                            break
+                        else:
+                            print("Invalid input.")
+                        found = True
+                        break
+            if not found:
+                print("Invalid UserName or Pasword!")
+    
+    except FileNotFoundError:
+        print("User file not found.")
+
+#================================================================================***CUSTOMER MENU***============================================================================#                  
 
 def customer_menu():
-    while True:
-        print("\nCustomer Menu")
-        print("1. Deposit")
-        print("2. Withdraw")
-        print("3. Transfer Money")
-        print("4. View Transaction history")
-        print("5. Check Balance")
-        print("6. Exit")
+    username = input("Enter your username: ")
+    password = input("Enter your password: ")
+    found = False
+    try:
+        with open("user.txt", "r") as user_file:
+            for line in user_file:
+                parts = line.strip().split(",")
+                if len(parts) >= 4 and parts[1] == username and parts[2] == password:
+                    print("Login successful!")
+                    while True:
+                        print("\nCustomer Menu")
+                        print("1. Deposit")
+                        print("2. Withdraw")
+                        print("3. Transfer Money")
+                        print("4. View Transaction history")
+                        print("5. Check Balance")
+                        print("6. Exit")
 
-        choice = input("Enter choice: ")
+                        choice = input("Enter choice: ")
 
-        if choice == "1":
-            deposit()
-        elif choice == "2":
-            withdraw()
-        elif choice == "3":
-            transfer_money()
-        elif choice == "4":
-            transaction_history()
-        elif choice == "5":
-            check_balance()
-        elif choice == "6":
-            break
-        else:
-            print("Invalid input.")
+                        if choice == "1":
+                            deposit()
+                        elif choice == "2":
+                            withdraw()
+                        elif choice == "3":
+                            transfer_money()
+                        elif choice == "4":
+                            transaction_history()
+                        elif choice == "5":
+                            check_balance()
+                        elif choice == "6":
+                            break
+                        else:
+                            print("Invalid input.")
+
+                        found = True
+                        break
+            if not found:
+                print("Invalid UserName or Pasword!")
+    
+    except FileNotFoundError:
+        print("User file not found.")
 
 #=============================================================***ADMIN OR CUSTOMER OPTION***==========================================================================================#
 
 def select_option_ad_or_cus():
     while True:
 
-        print("!!!Select the Role Admin or Customer!!! ")
+        print(Fore.CYAN+"!!!Select the Role Admin or Customer!!! ")
         print("Enter Number '1' if you are Admin: ")
         print("Enter Number '2' if you are Customer: ")
         print("Enter Number '3' if you want Exit: ")
@@ -433,8 +457,7 @@ def select_option_ad_or_cus():
         select_option = input("Enter a Number '1' or '2' or '3': ")
 
         if select_option == '1':
-
-            admin_menu()
+             admin_menu()
         elif select_option == '2':
             customer_menu()
         elif select_option == '3':
@@ -449,11 +472,11 @@ def select_option_ad_or_cus():
 def main():
     create_first_admin()
     select_option_ad_or_cus()
-    role = login_system()
-    if role == "Admin":
-        admin_menu()
-    elif role == "Customer":
-        customer_menu()
+    # role = login_system()
+    # if role == "Admin":
+    #     admin_menu()
+    # elif role == "Customer":
+    #     customer_menu()
 
 if __name__ == "__main__":
     main()

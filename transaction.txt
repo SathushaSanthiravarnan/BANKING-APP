@@ -1,4 +1,2 @@
-from: 1000001, to: 1000000, transfer: 2500.00, sender_balance: 67500.00, time: 11-05-2025 Sunday 01:15 PM
-account: 1000001, withdraw: 1500.0, balance: 66000.0 time: 11-05-2025 Sunday 01:16 PM
-from: 1000001, to: 1000000, transfer: 4000.00, sender_balance: 62000.00, time: 11-05-2025 Sunday 01:16 PM
-from: 1000001, to: 1000000, transfer: 1777.00, sender_balance: 8223.00, time: 12-05-2025 Monday 03:03 PM
+1000001,transfer,100000.0,367854676257357.0,13-05-2025 Tuesday 01:17 PM
+1000000,received,100000.0,101000.0,13-05-2025 Tuesday 01:17 PM
